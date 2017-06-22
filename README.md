@@ -113,14 +113,12 @@ The main issue is that it doesn't give any indication where paragraphs start and
 I'll be looking into how this plugin can modify the raw content so that it is in a JSON format. The response could be something like the following:
 ```json
 {
-  ...
   "rawmod": [
     "First sentence of first paragraph. Second sentence of first paragraph.",
     "First sentence of second paragraph. Second sentence of second paragraph.",
     "http://jlpwptest.localtunnel.me/wp-content/uploads/2017/06/Test_card-300x169.png",
     "First sentence of third paragraph. Second sentence of third paragraph."
-  ],
-  ...
+  ]
 }
 ```
 
@@ -130,17 +128,15 @@ This could be expanded so that objects would be returned that gave details as to
 For example:
 ```json
 {
-  ...
   "rawmod": [
     {
-      type: "text",
-      value: "First sentence of first paragraph. Second sentence of first paragraph."
+      "type": "text",
+      "value": "First sentence of first paragraph. Second sentence of first paragraph."
     }
     {
-      type: "image",
-      value: "http://jlpwptest.localtunnel.me/wp-content/uploads/2017/06/Test_card-300x169.png"
+      "type": "image",
+      "value": "http://jlpwptest.localtunnel.me/wp-content/uploads/2017/06/Test_card-300x169.png"
     }
-  ],
-  ...
+  ]
 }
 ```
