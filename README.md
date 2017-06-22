@@ -108,6 +108,7 @@ Here is an example of the same request above after this plugin is installed:
 }
 ```
 
+## Future plans
 The raw content is better than the rendered content, but it still has issues.
 The main issue is that it doesn't give any indication where paragraphs start and end.
 I'll be looking into how this plugin can modify the raw content so that it is in a JSON format. The response could be something like the following:
