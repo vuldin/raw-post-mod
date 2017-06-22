@@ -13,6 +13,8 @@ add_action( 'rest_api_init', function() {
 });
 
 function add_rawcontent( $object, $field_name, $request ) {
-  //return strip_tags( html_entity_decode( $object['content']['rendered'] ) );
-  return $object['content']['raw'];
+  $response = preg_split('/\r\n|\r|\n/', $object['content']['raw']);
+  $response = array_filter($response);
+  $response = array_values($response);
+  return $response;
 }

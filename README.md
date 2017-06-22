@@ -1,5 +1,5 @@
 # Raw post mod
-Adds a new field (rawcontent) to the post response from Wordpress API that contains the post's raw content.
+Adds a new field `rawmod` to the post response from Wordpress API that contains the post's raw content.
 
 ## Purpose
 While making a site using React/Next/Mobx and other javascript libraries, I wanted to get posts from wordpress and then render them as components in the app.
@@ -58,6 +58,10 @@ The `guid`, `title`, `content`, and `excerpt` only return a rendered version of 
 For external webapps using the REST API this makes it difficult to determine for themselves how to best render this content.
 This is especially the case with the `content` and `excerpt` objects.
 
+## Feature
+This mod reads the raw content and generates a JSON array.
+Each entry in the array is the contents of the post's paragraph.
+
 Here is an example of the same request above after this plugin is installed:
 ```json
 {
@@ -93,7 +97,12 @@ Here is an example of the same request above after this plugin is installed:
   "meta":[],
   "categories":[1],
   "tags":[],
-  "rawcontent": "First sentence of first paragraph. Second sentence of first paragraph. First sentence of second paragraph. Second sentence of second paragraph. <img class="alignnone size-medium wp-image-20" src="http://jlpwptest.localtunnel.me/wp-content/uploads/2017/06/Test_card-300x169.png" alt="" width="300" height="169" /> First sentence of third paragraph. Second sentence of third paragraph.",
+  "rawmod":[
+    "First sentence of first paragraph. Second sentence of first paragraph.",
+    "First sentence of second paragraph. Second sentence of second paragraph.",
+    "[caption id=\"attachment_20\" align=\"alignnone\" width=\"300\"]<img class=\"wp-image-20 size-medium\" src=\"http:\/\/jlpwptest.localtunnel.me\/wp-content\/uploads\/2017\/06\/Test_card-300x169.png\" alt=\"alternative text\" width=\"300\" height=\"169\" \/> caption[\/caption]",
+    "First sentence of third paragraph. Second sentence of third paragraph."
+  ],
   "_links":{
     "self":[{"href":"http:\/\/jlpwptest.localtunnel.me\/wp-json\/wp\/v2\/posts\/19"}],
     "collection":[{"href":"http:\/\/jlpwptest.localtunnel.me\/wp-json\/wp\/v2\/posts"}],
@@ -109,23 +118,11 @@ Here is an example of the same request above after this plugin is installed:
 ```
 
 ## Future plans
-The raw content is better than the rendered content, but it still has issues.
-The main issue is that it doesn't give any indication where paragraphs start and end.
-I'll be looking into how this plugin can modify the raw content so that it is in a JSON format. The response could be something like the following:
-```json
-{
-  "rawmod": [
-    "First sentence of first paragraph. Second sentence of first paragraph.",
-    "First sentence of second paragraph. Second sentence of second paragraph.",
-    "http://jlpwptest.localtunnel.me/wp-content/uploads/2017/06/Test_card-300x169.png",
-    "First sentence of third paragraph. Second sentence of third paragraph."
-  ]
-}
-```
+The rawmod content is better than either the rendered or raw content, but it still has issues.
+The main issue is the format that images and captions are in.
+I'll be looking into how this plugin can modify this content so that it is in a more usable JSON format.
+This could be solved by returning objects that gave details as to what type of block the content should be.
 
-In this array format each entry would be considered a new paragraph.
-By default a non-URL string would be considered paragraph text, and a URL would be considered an image.
-This could be expanded so that objects would be returned that gave details as to what type of block the content should be.
 For example:
 ```json
 {
@@ -136,7 +133,9 @@ For example:
     }
     {
       "type": "image",
-      "value": "http://jlpwptest.localtunnel.me/wp-content/uploads/2017/06/Test_card-300x169.png"
+      "link": "http://jlpwptest.localtunnel.me/wp-content/uploads/2017/06/Test_card-300x169.png",
+      "caption": "caption text",
+      "alttext": "alternate text"
     }
   ]
 }
