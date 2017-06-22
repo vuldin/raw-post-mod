@@ -1,6 +1,16 @@
 # Raw post mod
 Adds a new field `content_rawmod` to the post response from Wordpress API that contains a modified JSON version of the post's raw content.
 
+## Install
+This plugin will be available from the [Wordpress plugin directory](https://wordpress.org/plugins/) once it has gone through the approval process.
+Instead you can follow the steps below:
+```bash
+git clone https://github.com/vuldin/raw-post-mod.git
+zip -x *.git* -r raw-post-mod raw-post-mod/
+```
+Then upload this `raw-post-mod.zip` file from the plugins page of your wordpress admin portal.
+Once uploaded, select `enable`.
+
 ## Purpose
 While making a site using React/Next/Mobx and other javascript libraries, I wanted to get posts from wordpress and then render them as components in the app.
 The issue is that Wordpress by default only returned a rendered version of the post content when making an unauthenticated request.

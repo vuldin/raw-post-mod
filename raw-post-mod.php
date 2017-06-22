@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: raw-post-mod
+ * Plugin Name: Raw Post mod
  * Plugin URI: https://github.com/vuldin/raw-post-mod
- * Description: shows raw content in post GET responses
+ * Description: Modifies WP REST-API post GET response to include a JSON version of the raw content
  * Version: 1.0.0
  * Author: Joshua Purcell
- * Author URI: https://github.com/vuldin/
- * License: GPL2
+ * Author URI: https://github.com/vuldin
+ * License: GPL3
  */
 add_action( 'rest_api_init', function() {
   register_rest_field( 'post', 'content_rawmod', array('get_callback' => 'add_content_rawmod', ));
