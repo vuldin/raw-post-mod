@@ -9,10 +9,10 @@
  * License: GPL2
  */
 add_action( 'rest_api_init', function() {
-  register_rest_field( 'post', 'rawcontent', array('get_callback' => 'add_rawcontent', ));
+  register_rest_field( 'post', 'content_rawmod', array('get_callback' => 'add_content_rawmod', ));
 });
 
-function add_rawcontent( $object, $field_name, $request ) {
+function add_content_rawmod( $object, $field_name, $request ) {
   $response = preg_split('/\r\n|\r|\n/', $object['content']['raw']);
   $response = array_filter($response);
   $response = array_values($response);

@@ -1,5 +1,5 @@
 # Raw post mod
-Adds a new field `rawmod` to the post response from Wordpress API that contains the post's raw content.
+Adds a new field `content_rawmod` to the post response from Wordpress API that contains a modified JSON version of the post's raw content.
 
 ## Purpose
 While making a site using React/Next/Mobx and other javascript libraries, I wanted to get posts from wordpress and then render them as components in the app.
@@ -62,7 +62,7 @@ This is especially the case with the `content` and `excerpt` objects.
 This mod reads the raw content and generates a JSON array.
 Each entry in the array is the contents of the post's paragraph.
 
-Here is an example of the same request above after this plugin is installed:
+Here is an example of the same request above after this plugin is installed (see the `content_rawmod` property):
 ```json
 {
   "id":19,
@@ -97,7 +97,7 @@ Here is an example of the same request above after this plugin is installed:
   "meta":[],
   "categories":[1],
   "tags":[],
-  "rawmod":[
+  "content_rawmod":[
     "First sentence of first paragraph. Second sentence of first paragraph.",
     "First sentence of second paragraph. Second sentence of second paragraph.",
     "[caption id=\"attachment_20\" align=\"alignnone\" width=\"300\"]<img class=\"wp-image-20 size-medium\" src=\"http:\/\/jlpwptest.localtunnel.me\/wp-content\/uploads\/2017\/06\/Test_card-300x169.png\" alt=\"alternative text\" width=\"300\" height=\"169\" \/> caption[\/caption]",
@@ -126,7 +126,7 @@ This could be solved by returning objects that gave details as to what type of b
 For example:
 ```json
 {
-  "rawmod": [
+  "content_rawmod": [
     {
       "type": "text",
       "value": "First sentence of first paragraph. Second sentence of first paragraph."
