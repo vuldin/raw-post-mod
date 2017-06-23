@@ -1,5 +1,5 @@
 # Raw post mod
-Adds a new field `content_rawmod` to the post response from Wordpress API that contains a modified JSON version of the post's raw content.
+Adds new fields `content_rawmod` and `excerpt_rawmod` to the post response from Wordpress API that contains a modified JSON version of the post's raw content.
 
 ## Install
 This plugin will be available from the [Wordpress plugin directory](https://wordpress.org/plugins/) once it has gone through the approval process.
@@ -72,7 +72,7 @@ This is especially the case with the `content` and `excerpt` objects.
 This mod reads the raw content and generates a JSON array.
 Each entry in the array is the contents of the post's paragraph.
 
-Here is an example of the same request above after this plugin is installed (see the `content_rawmod` property):
+Here is an example of the same request above after this plugin is installed (see the `content_rawmod` and `excerpt_rawmod` properties):
 ```json
 {
   "id":19,
@@ -113,6 +113,7 @@ Here is an example of the same request above after this plugin is installed (see
     "[caption id=\"attachment_20\" align=\"alignnone\" width=\"300\"]<img class=\"wp-image-20 size-medium\" src=\"http:\/\/jlpwptest.localtunnel.me\/wp-content\/uploads\/2017\/06\/Test_card-300x169.png\" alt=\"alternative text\" width=\"300\" height=\"169\" \/> caption[\/caption]",
     "First sentence of third paragraph. Second sentence of third paragraph."
   ],
+  "excerpt_rawmod":"First sentence of first paragraph. Second sentence of first paragraph. First sentence of second paragraph. Second sentence of second paragraph. First sentence of third paragraph. Second sentence of third paragraph.",
   "_links":{
     "self":[{"href":"http:\/\/jlpwptest.localtunnel.me\/wp-json\/wp\/v2\/posts\/19"}],
     "collection":[{"href":"http:\/\/jlpwptest.localtunnel.me\/wp-json\/wp\/v2\/posts"}],
@@ -128,6 +129,9 @@ Here is an example of the same request above after this plugin is installed (see
 ```
 
 ## Future plans
+For the `excerpt_rawmod`, this mod must use the rendered property instead of raw since there seems to be no raw property even when authenticated for excerpt.
+So for this transformation I strip the `<p>` tags from the string and return the response. This may need to be changed in the future.
+
 The rawmod content is better than either the rendered or raw content, but it still has issues.
 The main issue is the format that images and captions are in.
 I'll be looking into how this plugin can modify this content so that it is in a more usable JSON format.
